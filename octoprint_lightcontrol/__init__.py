@@ -229,6 +229,8 @@ class LightControl(octoprint.plugin.StartupPlugin,
                 self.turn_light_on()
         elif command == 'getLightState':
             return jsonify(isLightOn=self.isLightOn)
+        else:
+            self._logger.warn('Received unexpected command %s' % command)
 
     def get_settings_defaults(self):
         return dict(
