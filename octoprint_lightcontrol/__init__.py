@@ -143,7 +143,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
             if self.powerOffWhenIdle and self.isLightOn:
                 self._idleTimer = ResettableTimer(self.idleTimeout * 60,
                                                   self._idle_poweroff)
-            self._idleTimer.start()
+                self._idleTimer.start()
 
     def _stop_idle_timer(self):
         if self._idleTimer:
