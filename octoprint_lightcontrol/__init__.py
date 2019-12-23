@@ -214,6 +214,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
         )
 
     def on_api_command(self, command, data):
+        self._logger.info('Received command %s' % command)
         if not user_permission.can():
             return make_response("Insufficient rights", 403)
 
