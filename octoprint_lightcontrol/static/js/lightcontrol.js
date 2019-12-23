@@ -6,15 +6,15 @@ $(function() {
         self.loginState = parameters[1];
         self.settings = undefined;
         self.hasGPIO = ko.observable(undefined);
-        self.isPSUOn = ko.observable(undefined);
-        self.psu_indicator = $("#lightcontrol_indicator");
+        self.isLightOn = ko.observable(undefined);
+        self.light_indicator = $("#lightcontrol_indicator");
 
         self.onBeforeBinding = function() {
             self.settings = self.settingsViewModel.settings;
         };
 
         self.onStartup = function () {
-            self.isPSUOn.subscribe(function() {
+            self.isLightOn.subscribe(function() {
                 if (self.isLightOn()) {
                     self.light_indicator.removeClass("off").addClass("on");
                 } else {
@@ -41,7 +41,7 @@ $(function() {
             }
 
             self.hasGPIO(data.hasGPIO);
-            self.isPSUOn(data.isPSUOn);
+            self.isLightOn(data.isLightOn);
         };
 
         self.toggleLight = function() {
