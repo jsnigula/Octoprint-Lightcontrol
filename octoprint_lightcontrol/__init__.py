@@ -46,6 +46,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
         self.invertonoffGPIOPin = False
         self.powerOffWhenIdle = False
         self.isLightOn = False
+        self.idleTimeout = 0
         self._idleTimer = None
         self._configuredGPIOPins = []
 
