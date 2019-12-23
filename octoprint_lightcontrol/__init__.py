@@ -51,6 +51,9 @@ class LightControl(octoprint.plugin.StartupPlugin,
         self._configuredGPIOPins = []
 
     def on_settings_initialized(self):
+        self.GPIOMode = self._settings.get(["GPIOMode"])
+        self._logger.debug("GPIOMode: %s" % self.GPIOMode)
+
         self.onoffGPIOPin = self._settings.get_int(["onoffGPIOPin"])
         self._logger.debug("onoffGPIOPin: %s" % self.onoffGPIOPin)
 
