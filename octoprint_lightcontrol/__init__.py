@@ -187,7 +187,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
         try:
             GPIO.output(self._gpio_get_pin(self.onoffGPIOPin), pin_output)
             self.isLightOn = True
-            self.logger.debug('Sending plugin message as %s' % self._identifier)
+            self._logger.debug('Sending plugin message as %s' % self._identifier)
             self._plugin_manager.send_plugin_message(self._identifier,
                                                      {'hasGPIO': True,
                                                       'isLightOn': True})
@@ -207,7 +207,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
         try:
             GPIO.output(self._gpio_get_pin(self.onoffGPIOPin), pin_output)
             self.isLightOn = False
-            self.logger.debug('Sending plugin message as %s' % self._identifier)
+            self._logger.debug('Sending plugin message as %s' % self._identifier)
             self._plugin_manager.send_plugin_message(self._identifier,
                                                      {'hasGPIO': True,
                                                       'isLightOn': False})
