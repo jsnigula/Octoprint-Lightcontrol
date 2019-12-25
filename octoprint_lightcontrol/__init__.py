@@ -70,6 +70,8 @@ class LightControl(octoprint.plugin.StartupPlugin,
 
         self._configure_gpio()
 
+        self.turn_light_off()
+
         self._start_idle_timer()
 
     def _gpio_board_to_bcm(self, pin):
@@ -187,7 +189,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
             self.isLightOn = True
             self._plugin_manager.send_plugin_message(self._identifier,
                                                      {'hasGPIO': True,
-                                                      'isPSUOn': True})
+                                                      'isLightOn': True})
 
             self._start_idle_timer()
         except (RuntimeError, ValueError) as e:
@@ -206,7 +208,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
             self.isLightOn = False
             self._plugin_manager.send_plugin_message(self._identifier,
                                                      {'hasGPIO': True,
-                                                      'isPSUOn': False})
+                                                      'isLightOn': False})
             if not idleOff:
                 self._stop_idle_timer()
         except (RuntimeError, ValueError) as e:
