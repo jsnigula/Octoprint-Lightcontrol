@@ -149,7 +149,8 @@ class LightControl(octoprint.plugin.StartupPlugin,
             self._reset_idle_timer()
         else:
             if self.powerOffWhenIdle and self.isLightOn:
-                self._logger.debug('Starting idle timer with timeout %d' % self.idleTimeout )
+                self._logger.debug('Starting idle timer with timeout %d'
+                                   % self.idleTimeout)
                 self._idleTimer = ResettableTimer(self.idleTimeout * 60,
                                                   self._idle_poweroff)
                 self._idleTimer.start()
@@ -165,7 +166,8 @@ class LightControl(octoprint.plugin.StartupPlugin,
                 self._idleTimer.reset()
             else:
                 raise Exception()
-        except Exception:
+        except Exception as e:
+            self._logger.exception(e)
             self._start_idle_timer()
 
     def _idle_poweroff(self):
@@ -175,6 +177,7 @@ class LightControl(octoprint.plugin.StartupPlugin,
         self._logger.info("Idle timeout reached after %s minute(s). "
                           "shutting off Light." % self.idleTimeout)
         self.turn_light_off(True)
+        self._stop_idle_timer()
 
     def turn_light_on(self):
         self._logger.debug("Switching Light On Using GPIO: %s"
@@ -187,7 +190,8 @@ class LightControl(octoprint.plugin.StartupPlugin,
         try:
             GPIO.output(self._gpio_get_pin(self.onoffGPIOPin), pin_output)
             self.isLightOn = True
-            self._logger.debug('Sending plugin message as %s' % self._identifier)
+            self._logger.debug('Sending plugin message as %s'
+                               % self._identifier)
             self._plugin_manager.send_plugin_message(self._identifier,
                                                      {'hasGPIO': True,
                                                       'isLightOn': True})
@@ -207,7 +211,8 @@ class LightControl(octoprint.plugin.StartupPlugin,
         try:
             GPIO.output(self._gpio_get_pin(self.onoffGPIOPin), pin_output)
             self.isLightOn = False
-            self._logger.debug('Sending plugin message as %s' % self._identifier)
+            self._logger.debug('Sending plugin message as %s'
+                               % self._identifier)
             self._plugin_manager.send_plugin_message(self._identifier,
                                                      {'hasGPIO': True,
                                                       'isLightOn': False})
